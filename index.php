@@ -17,6 +17,8 @@ $statement3 = $pdo->query("SELECT title , performer , date , startTime FROM show
 $resultat3 = $statement3->fetchAll();
 var_dump($resultat3);
 
+$statement4 = $pdo->query("SELECT lastName , firstName , birthDate, card , cardNumber FROM clients ");
+$resultat4 = $statement4->fetchAll();
 
 ?>
 <!DOCTYPE html>
@@ -90,6 +92,15 @@ var_dump($resultat3);
 
 
 
+	<?php foreach ($resultat4 as $value) : ?>
+
+		<p>nom : <?= $value->lastName; ?></p>
+		<p>prénom : <?= $value->firstName; ?></p>
+		<p>date de naissance : <?= $value->birthDate; ?></p>
+		<p>carte de fidélité : <?php if( $value->card == 1){  echo $value->card ; }else{echo'non';}?></p>
+		<p>numéro de carte : <?php if( $value->cardNumber){  echo $value->cardNumber ; }else{echo'non';}?></p>
+
+	<?php endforeach ?>
 
 
 
