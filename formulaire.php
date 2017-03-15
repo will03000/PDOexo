@@ -68,7 +68,7 @@ if (isset($_POST) && !empty($_POST)) {
 
 	<input type="text" name="lastName" placeholder="nom">
 	<input type="text" name="firstName" placeholder="prenom">
-	<input type="text" name="birthDate">
+	<input type="date" name="birthDate">
 	<label for="card">carte de fidélité </label>
 	<input type="checkbox" name="card" id="card">
 	<input type="number" name="cardNumber" placeholder="numero de la carte">
