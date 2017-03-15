@@ -1,0 +1,4 @@
+input[type="number"] {
+  display: none; }
+  input[type="number"] + input[type="checkbox"]:checked {
+    display: block; }
