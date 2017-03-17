@@ -1,7 +1,7 @@
 input[type="number"]{
 	display: none;
 
-	&+input[type="checkbox"]:checked{
-		display:block;
+	input[type="checkbox"]:checked ~ &{
+		display:inline;
 	}
 }

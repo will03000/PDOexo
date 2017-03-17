@@ -1,10 +1,11 @@
-<?php 
-$erreur = [];
-if (isset($_POST) && !empty($_POST)) {
-	
-	$donnee = [];
+<?php
+$pdo = new PDO('mysql:dbname=colyseum;host=localhost;charset=utf8','root', '');
+		$pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+		$pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
 
-	if (isset($_POST['lastName']) && $_POST['lastName'] !== ''){
+$donnee = [];
+
+if (isset($_POST['lastName']) && $_POST['lastName'] !== ''){
 		$donnee['lastName'] = $_POST['lastName'];
 	}else{
 		$erreur[] = 'merci de mettre un nom';
@@ -21,20 +22,18 @@ if (isset($_POST) && !empty($_POST)) {
 	}
 	if (isset($_POST['card'])) {
 			$donnee['card'] = 1;
-		
-		 if(isset($_POST['cardNumber'])) {
+
+			 if(isset($_POST['cardNumber'])) {
 		 	$donnee['cardNumber'] = $_POST['cardNumber'];
-		}else{
+		 	}else{
 			$erreur[] = 'merci de mettre votre numéro de carte';
-		}
-	}else{
+				}
+			}else{
 		$donnee['card'] = 0;
 		$donnee['cardNumber'] = null;
 	}
 	if (empty($erreur)) {
-		$pdo = new PDO('mysql:dbname=colyseum;host=localhost;charset=utf8','root', '');
-		$pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-		$pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
+		
 		$statement = $pdo->prepare('INSERT INTO clients 
 									SET lastName = :lastName,
 										firstName = :firstName,
@@ -42,45 +41,32 @@ if (isset($_POST) && !empty($_POST)) {
 										card = :card,
 										cardNumber = :cardNumber');
 		$statement->execute($donnee);
-
 		$erreur[] = 'le client est bien ajouté';
-	}
+		}
 
 	
-}
- ?>
+
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
-	<title>formulaire</title>
-	<link rel="stylesheet" type="text/css" href="../style/style.css">
+	<title></title>
 </head>
 <body>
 
-<ul>
-	<?php
-	foreach ($erreur as $value) {
-		echo "<li>$value</li>";
-	}
-	?>
-</ul>
 
-<form method="post" action="formulaire.php">
-
-	<input type="text" name="lastName" placeholder="nom">
-	<input type="text" name="firstName" placeholder="prenom">
-	<input type="date" name="birthDate">
-	<label for="card">carte de fidélité </label>
-	<input type="checkbox" name="card" id="card">
-	<input type="number" name="cardNumber" placeholder="numero de la carte">
-	<button type="submit">ok</button>
-
+<form method="POST" action="exo3.php">
 	
+<input type="text" name="lastName" placeholder="nom">
+<input type="text" name="firstName" placeholder="prenom">
+<input type="date" name="birthDate">
+<label for="carte"> carte de fidélité</label>
+<input type="checkbox" name="card" id="carte">
+<input type="number" name="cardNumber" placeholder="numéro de carte">
+<button type="submit">ok</button>
+
 </form>
-
-
-
-
 
 
 
